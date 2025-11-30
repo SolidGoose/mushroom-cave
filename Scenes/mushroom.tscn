@@ -1,9 +1,7 @@
 [gd_scene load_steps=19 format=3 uid="uid://d3n8e0ronsxqa"]
 
+[ext_resource type="Script" uid="uid://m1g4i0a28kln" path="res://Scenes/mushroom.gd" id="1_0q7t7"]
 [ext_resource type="Texture2D" uid="uid://dcr3bwchgd28o" path="res://Sprites/mushroom-idle.png" id="1_2r5i3"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_0gnow"]
-radius = 15.033297
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0q7t7"]
 atlas = ExtResource("1_2r5i3")
@@ -111,27 +109,34 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ksohp"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_0gnow"]
+radius = 2.0
 
-[node name="Mushroom" type="Node2D"]
+[node name="Mushroom" type="CharacterBody2D"]
+script = ExtResource("1_0q7t7")
 
-[node name="MushroomArea" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MushroomArea"]
-shape = SubResource("CircleShape2D_0gnow")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="MushroomArea"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_1rprf")
 frame_progress = 0.5490511
 
-[node name="LeftArea" type="Area2D" parent="."]
-position = Vector2(-32, 0)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_0gnow")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftArea"]
-shape = SubResource("CircleShape2D_ksohp")
+[node name="Left" type="RayCast2D" parent="."]
+rotation = 1.5707964
+target_position = Vector2(0, 8)
+collide_with_areas = true
 
-[node name="RightArea" type="Area2D" parent="."]
+[node name="Right" type="RayCast2D" parent="."]
+rotation = -1.5707964
+target_position = Vector2(0, 8)
+collide_with_areas = true
 
-[node name="UpArea" type="Area2D" parent="."]
+[node name="Up" type="RayCast2D" parent="."]
+rotation = 3.1415927
+target_position = Vector2(0, 8)
+collide_with_areas = true
 
-[node name="DownArea" type="Area2D" parent="."]
+[node name="Down" type="RayCast2D" parent="."]
+target_position = Vector2(0, 8)
+collide_with_areas = true

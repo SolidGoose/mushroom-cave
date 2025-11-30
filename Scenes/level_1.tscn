@@ -1,8 +1,63 @@
-[gd_scene load_steps=2 format=3 uid="uid://lk8th6ly3pc"]
+[gd_scene load_steps=3 format=3 uid="uid://lk8th6ly3pc"]
 
+[ext_resource type="PackedScene" uid="uid://chy3pylg861x" path="res://Scenes/anchor.tscn" id="1_8ffim"]
 [ext_resource type="PackedScene" uid="uid://d3n8e0ronsxqa" path="res://Scenes/mushroom.tscn" id="1_vk57k"]
 
 [node name="Level1" type="Node2D"]
 
+[node name="Anchors" type="Node2D" parent="."]
+position = Vector2(40, 40)
+
+[node name="AnchorArea" parent="Anchors" instance=ExtResource("1_8ffim")]
+position = Vector2(16, 0)
+
+[node name="AnchorArea2" parent="Anchors" instance=ExtResource("1_8ffim")]
+position = Vector2(0, -16)
+
+[node name="AnchorArea3" parent="Anchors" instance=ExtResource("1_8ffim")]
+position = Vector2(-16, 0)
+
+[node name="AnchorArea4" parent="Anchors" instance=ExtResource("1_8ffim")]
+position = Vector2(-16, 16)
+
+[node name="AnchorArea5" parent="Anchors" instance=ExtResource("1_8ffim")]
+position = Vector2(0, 96)
+
+[node name="AnchorArea6" parent="Anchors" instance=ExtResource("1_8ffim")]
+position = Vector2(16, 32)
+
+[node name="AnchorArea7" parent="Anchors" instance=ExtResource("1_8ffim")]
+position = Vector2(32, 16)
+
+[node name="AnchorArea8" parent="Anchors" instance=ExtResource("1_8ffim")]
+position = Vector2(-16, 32)
+
+[node name="AnchorArea9" parent="Anchors" instance=ExtResource("1_8ffim")]
+position = Vector2(-16, 48)
+
+[node name="AnchorArea10" parent="Anchors" instance=ExtResource("1_8ffim")]
+position = Vector2(-16, 64)
+
+[node name="AnchorArea11" parent="Anchors" instance=ExtResource("1_8ffim")]
+position = Vector2(-16, 80)
+
+[node name="AnchorArea12" parent="Anchors" instance=ExtResource("1_8ffim")]
+position = Vector2(16, 48)
+
+[node name="AnchorArea13" parent="Anchors" instance=ExtResource("1_8ffim")]
+position = Vector2(16, 64)
+
+[node name="AnchorArea14" parent="Anchors" instance=ExtResource("1_8ffim")]
+position = Vector2(48, 80)
+
+[node name="AnchorArea3" parent="Anchors/AnchorArea14" instance=ExtResource("1_8ffim")]
+position = Vector2(-32, 16)
+
 [node name="Mushroom" parent="." instance=ExtResource("1_vk57k")]
-position = Vector2(1017, 677)
+position = Vector2(40, 40)
+
+[node name="AnchorArea3" parent="." instance=ExtResource("1_8ffim")]
+position = Vector2(72, 104)
+
+[node name="AnchorArea4" parent="." instance=ExtResource("1_8ffim")]
+position = Vector2(72, 136)

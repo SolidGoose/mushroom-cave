@@ -1,3 +1,10 @@
-[gd_scene format=3 uid="uid://chy3pylg861x"]
+[gd_scene load_steps=2 format=3 uid="uid://chy3pylg861x"]
 
-[node name="Area2D" type="Area2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4w1vg"]
+size = Vector2(16, 16)
+
+[node name="AnchorArea" type="Area2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+modulate = Color(0.9807722, 0.09153121, 0.54858774, 1)
+shape = SubResource("RectangleShape2D_4w1vg")
