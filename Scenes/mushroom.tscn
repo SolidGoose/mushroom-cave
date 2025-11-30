@@ -1,6 +1,6 @@
 [gd_scene load_steps=19 format=3 uid="uid://d3n8e0ronsxqa"]
 
-[ext_resource type="Script" uid="uid://m1g4i0a28kln" path="res://Scenes/mushroom.gd" id="1_0q7t7"]
+[ext_resource type="Script" uid="uid://m1g4i0a28kln" path="res://Scripts/mushroom.gd" id="1_0q7t7"]
 [ext_resource type="Texture2D" uid="uid://dcr3bwchgd28o" path="res://Sprites/mushroom-idle.png" id="1_2r5i3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0q7t7"]
@@ -112,7 +112,7 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_0gnow"]
 radius = 2.0
 
-[node name="Mushroom" type="CharacterBody2D"]
+[node name="Mushroom" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_0q7t7")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

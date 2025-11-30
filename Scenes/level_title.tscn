@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://vm6eoi1xscho"]
+
+[ext_resource type="Script" uid="uid://d3mc3hv5bvtoo" path="res://Scripts/level_title.gd" id="1_ef4is"]
+[ext_resource type="FontFile" uid="uid://bo7h7wymd2adw" path="res://Fonts/aurora-24.ttf" id="1_glmhj"]
+
+[node name="LevelTitle" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ef4is")
+
+[node name="Title" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -62.0
+offset_top = 6.0
+offset_right = 62.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("1_glmhj")
+theme_override_font_sizes/font_size = 9
+text = "1. Hello World!"
+horizontal_alignment = 1
+
+[node name="DisplayDelayTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="timeout" from="DisplayDelayTimer" to="." method="_on_display_delay_timer_timeout"]
