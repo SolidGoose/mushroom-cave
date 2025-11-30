@@ -2,34 +2,79 @@ extends CharacterBody2D
 
 const tile_size: Vector2 = Vector2(16, 16)
 var sprite_node_pos_tween: Tween
+var tml: TileMapLayer
 
+# ice = (8, 1), grey/floor = (1,7), wall = (1,1)
+const ICE_CELL_TYPE = Vector2i(8,1)
+const FLOOR_CELL_TYPE = Vector2i(1,7)
+const WALL_CELL_TYPE = Vector2i(1,1)
+
+func _ready() -> void:
+	tml = get_parent().get_node("TileMapLayer")
 
 func _physics_process(delta: float) -> void:
 	if !sprite_node_pos_tween or not sprite_node_pos_tween.is_running():
+		var dir = Vector2(0,0)
+		var pos = Vector2(0,0)
 		if Input.is_action_just_pressed("Up") and !$Up.is_colliding():
-			print("Going up!")
-			_move(Vector2(0, -1))
+			dir = Vector2(0, -1)
+			pos = tml.local_to_map(global_position)
 		elif Input.is_action_just_pressed("Down") and !$Down.is_colliding():
-			print("Going down!")
-			_move(Vector2(0, 1))
+			dir = Vector2(0, 1)
+			pos = tml.local_to_map(global_position)
 		elif Input.is_action_just_pressed("Left") and !$Left.is_colliding():
-			print("Going left!")
-			_move(Vector2(-1, 0))
+			dir = Vector2(-1, 0)
+			pos = tml.local_to_map(global_position)
 		elif Input.is_action_just_pressed("Right") and !$Right.is_colliding():
-			print("Going right!")
-			_move(Vector2(1, 0))
+			dir = Vector2(1, 0)
+			pos = tml.local_to_map(global_position)
+		
+		if is_ice_next(dir, pos):
+			print("is ice next")
+			var len = get_ice_length(dir, pos)
+			var speed = 0.2*(len+1) # change 0.2 to what speed you want
+			dir = dir*(len+1) # this is hacky i know
+			_move(dir, speed)
+		else:
+			if dir != Vector2(0,0):
+				_move(dir)
+		
+func is_ice(pos: Vector2):
+	var cell_type = tml.get_cell_atlas_coords(pos)
+	if cell_type != Vector2i(-1, -1):
+		return cell_type == ICE_CELL_TYPE
+	return false
+	
+func is_ice_next(dir: Vector2, currpos: Vector2):
+	var pos = Vector2(dir.x+currpos.x, dir.y+currpos.y)
+	return is_ice(pos)
 
+func get_ice_length(dir: Vector2, currpos: Vector2):
+	var i = currpos.x
+	var j = currpos.y
+	var len = 0
+	print(i,j)
+	while i >= 0 and j >= 0:
+		i = i + dir.x
+		j = j + dir.y
+		var cell_type = tml.get_cell_atlas_coords(Vector2i(i, j))
+		if cell_type == Vector2i(-1, -1) or cell_type != ICE_CELL_TYPE:
+			return len
+			#print('0')
+		else: 
+			if cell_type == ICE_CELL_TYPE:
+				len += 1
+			#print('1')
+	return len
 
-func _move(dir: Vector2):
+func _move(dir: Vector2, speed: float=0.2):
 	var walk_vector: Vector2 = dir * tile_size
-	print("Moving mushroom: " + str(walk_vector))
 	global_position += walk_vector
 	$AnimatedSprite2D.global_position -= walk_vector
 
 	if sprite_node_pos_tween:
-		print("Killing existing tween")
 		sprite_node_pos_tween.kill()
-	print("Creating new tween")
+	
 	sprite_node_pos_tween = create_tween()
 	sprite_node_pos_tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
-	sprite_node_pos_tween.tween_property($AnimatedSprite2D, "global_position", global_position, 0.2).set_trans(Tween.TRANS_SINE)
+	sprite_node_pos_tween.tween_property($AnimatedSprite2D, "global_position", global_position, speed).set_trans(Tween.TRANS_SINE)
