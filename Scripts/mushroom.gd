@@ -32,9 +32,8 @@ func _physics_process(_delta: float) -> void:
 			pos = tml.local_to_map(global_position)
 
 		if is_ice_next(dir, pos):
-			print("is ice next")
 			var ice_length = get_ice_length(dir, pos)
-			var speed = 0.2 * (ice_length + 1) # change 0.2 to what speed you want
+			var speed = 0.185 * (ice_length + 1) # change 0.2 to what speed you want
 			dir = dir * (ice_length + 1) # this is hacky i know
 			_move(dir, speed)
 		else:
@@ -47,24 +46,33 @@ func is_ice(pos: Vector2):
 		return cell_type == ICE_CELL_TYPE
 	return false
 	
-func is_ice_next(dir: Vector2, currpos: Vector2):
-	var pos = Vector2(dir.x + currpos.x, dir.y + currpos.y)
-	return is_ice(pos)
+func is_ice_next(dir: Vector2, pos: Vector2):
+	var pos_new = Vector2(dir.x + pos.x, dir.y + pos.y)
+	return is_ice(pos_new)
+	
+func is_tile(pos: Vector2, TILE_TYPE: Vector2i):
+	var cell_type = tml.get_cell_atlas_coords(pos)
+	if cell_type != Vector2i(-1, -1):
+		return cell_type == TILE_TYPE
+	return false
 
-func get_ice_length(dir: Vector2, currpos: Vector2):
-	var i: float = currpos.x
-	var j: float = currpos.y
-	var ice_length: int = 0
-	print(i, j)
+func get_ice_length(dir: Vector2, pos: Vector2):
+	var i = pos.x
+	var j = pos.y
+	var ice_length = 0
+	
 	while i >= 0 and j >= 0:
 		i = i + dir.x
 		j = j + dir.y
-		var cell_type = tml.get_cell_atlas_coords(Vector2(i, j))
-		if cell_type == Vector2i(-1, -1) or cell_type != ICE_CELL_TYPE:
-			return ice_length
+		var curr_pos = Vector2(i, j)
+		var cell_type = tml.get_cell_atlas_coords(curr_pos)
+		if cell_type == ICE_CELL_TYPE:
+			ice_length += 1
 		else:
-			if cell_type == ICE_CELL_TYPE:
-				ice_length += 1
+			if is_tile(curr_pos, FLOOR_CELL_TYPE):
+				return ice_length
+			elif is_tile(curr_pos, WALL_CELL_TYPE):
+				return ice_length - 1
 	return ice_length
 
 func _move(dir: Vector2, speed: float = 0.2):
