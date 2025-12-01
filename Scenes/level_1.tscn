@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://lk8th6ly3pc"]
+[gd_scene load_steps=10 format=4 uid="uid://lk8th6ly3pc"]
 
 [ext_resource type="PackedScene" uid="uid://d3n8e0ronsxqa" path="res://Scenes/mushroom.tscn" id="1_vk57k"]
 [ext_resource type="Texture2D" uid="uid://bwxk412hdbtnw" path="res://Sprites/tilemap.png" id="1_xfk5q"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://vm6eoi1xscho" path="res://Scenes/level_title.tscn" id="4_7p6j4"]
 [ext_resource type="PackedScene" uid="uid://cn6ywibegskvw" path="res://Scenes/you_died.tscn" id="5_6444e"]
 [ext_resource type="PackedScene" uid="uid://b0lik35kpk0eo" path="res://Scenes/lives_counter.tscn" id="6_evi0p"]
+[ext_resource type="PackedScene" uid="uid://bxb06722y4hcu" path="res://Scenes/box.tscn" id="7_lsmp6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7p6j4"]
 texture = ExtResource("1_xfk5q")
@@ -38,7 +39,7 @@ position = Vector2(136, 72)
 
 [node name="Mushroom" parent="." instance=ExtResource("1_vk57k")]
 position = Vector2(40, 40)
-lives = 8
+lives = 20
 
 [node name="LevelTitle" parent="." instance=ExtResource("4_7p6j4")]
 offset_right = 320.0
@@ -63,3 +64,9 @@ offset_left = 13.0
 offset_top = 142.0
 offset_right = 53.0
 offset_bottom = 174.0
+
+[node name="Box" parent="." instance=ExtResource("7_lsmp6")]
+position = Vector2(88, 88)
+
+[node name="Box2" parent="." instance=ExtResource("7_lsmp6")]
+position = Vector2(72, 56)
