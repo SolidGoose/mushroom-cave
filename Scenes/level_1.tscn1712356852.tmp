@@ -1,11 +1,9 @@
-[gd_scene load_steps=9 format=4 uid="uid://lk8th6ly3pc"]
+[gd_scene load_steps=7 format=4 uid="uid://lk8th6ly3pc"]
 
 [ext_resource type="PackedScene" uid="uid://d3n8e0ronsxqa" path="res://Scenes/mushroom.tscn" id="1_vk57k"]
 [ext_resource type="Texture2D" uid="uid://bwxk412hdbtnw" path="res://Sprites/tilemap.png" id="1_xfk5q"]
 [ext_resource type="PackedScene" uid="uid://lhtveyebkt4v" path="res://Scenes/finish.tscn" id="3_xfk5q"]
 [ext_resource type="PackedScene" uid="uid://vm6eoi1xscho" path="res://Scenes/level_title.tscn" id="4_7p6j4"]
-[ext_resource type="PackedScene" uid="uid://cn6ywibegskvw" path="res://Scenes/you_died.tscn" id="5_6444e"]
-[ext_resource type="PackedScene" uid="uid://b0lik35kpk0eo" path="res://Scenes/lives_counter.tscn" id="6_evi0p"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7p6j4"]
 texture = ExtResource("1_xfk5q")
@@ -38,28 +36,8 @@ position = Vector2(136, 72)
 
 [node name="Mushroom" parent="." instance=ExtResource("1_vk57k")]
 position = Vector2(40, 40)
-lives = 8
+lifes = 10
 
 [node name="LevelTitle" parent="." instance=ExtResource("4_7p6j4")]
 offset_right = 320.0
 offset_bottom = 180.0
-
-[node name="YouDied" parent="." instance=ExtResource("5_6444e")]
-modulate = Color(1, 1, 1, 0)
-anchors_preset = 0
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 320.0
-offset_bottom = 180.0
-grow_horizontal = 1
-grow_vertical = 1
-
-[node name="LivesCounter" parent="." instance=ExtResource("6_evi0p")]
-offset_left = 13.0
-offset_top = 142.0
-offset_right = 53.0
-offset_bottom = 174.0

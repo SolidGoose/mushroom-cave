@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0lik35kpk0eo"]
+
+[ext_resource type="FontFile" uid="uid://bo7h7wymd2adw" path="res://Fonts/aurora-24.ttf" id="1_or6kn"]
+
+[node name="LivesCounter" type="Label"]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("1_or6kn")
+theme_override_font_sizes/font_size = 18
+text = "5"

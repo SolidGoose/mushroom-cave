@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://bbbjeac6lliir"]
 
-[ext_resource type="FontFile" uid="uid://bo7h7wymd2adw" path="res://Fonts/aurora-24.ttf" id="1_0gua7"]
+[ext_resource type="FontFile" uid="uid://bo7h7wymd2adw" path="res://Fonts/aurora-24.ttf" id="1_vac7v"]
 
-[node name="GameOverScreen" type="Control"]
+[node name="YouWon" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,7 +25,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="GameOverText" type="Label" parent="."]
+[node name="YouWonText" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -38,6 +38,6 @@ offset_right = 49.0
 offset_bottom = 15.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("1_0gua7")
+theme_override_fonts/font = ExtResource("1_vac7v")
 theme_override_font_sizes/font_size = 27
 text = "YOU WON!"

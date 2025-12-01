@@ -2,9 +2,12 @@ extends CharacterBody2D
 
 const tile_size: Vector2 = Vector2(16, 16)
 var sprite_node_pos_tween: Tween
-var tml: TileMapLayer
 
-@export var lifes: int
+@export var lives: int
+
+@onready var tml: TileMapLayer = get_parent().get_node("TileMapLayer")
+@onready var you_died: Control = get_parent().get_node("YouDied")
+@onready var lives_counter: Label = get_parent().get_node("LivesCounter")
 
 # ice = (8, 1), grey/floor = (1,7), wall = (1,1)
 const ICE_CELL_TYPE = Vector2i(8, 1)
@@ -12,7 +15,8 @@ const FLOOR_CELL_TYPE = Vector2i(1, 7)
 const WALL_CELL_TYPE = Vector2i(1, 1)
 
 func _ready() -> void:
-	tml = get_parent().get_node("TileMapLayer")
+	print("lives: " + str(lives))
+	lives_counter.text = str(lives)
 
 func _physics_process(_delta: float) -> void:
 	if !sprite_node_pos_tween or not sprite_node_pos_tween.is_running():
@@ -75,6 +79,17 @@ func get_ice_length(dir: Vector2, pos: Vector2):
 				return ice_length - 1
 	return ice_length
 
+
+func lose_life(amount: int = 1):
+	lives -= amount
+	lives_counter.text = str(lives)
+	print("Lives left: " + str(lives))
+	if lives <= 0:
+		queue_free()
+		Global.fade_in(you_died, 1.0)
+		Global.allow_restart = true
+		
+
 func _move(dir: Vector2, speed: float = 0.2):
 	# Define walk direction and distance
 	var walk_vector: Vector2 = dir * tile_size
@@ -90,3 +105,8 @@ func _move(dir: Vector2, speed: float = 0.2):
 	sprite_node_pos_tween = create_tween()
 	sprite_node_pos_tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
 	sprite_node_pos_tween.tween_property($AnimatedSprite2D, "global_position", global_position, speed).set_trans(Tween.TRANS_SINE)
+
+	await sprite_node_pos_tween.finished
+	sprite_node_pos_tween.kill()
+
+	lose_life()
